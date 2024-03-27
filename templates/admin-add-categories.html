@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Добавить
+{% endblock %}
+
+{% block body %}
+
+ {% if error_message %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+<h2 class="add-new-debt">Добавить новую категорию расходов</h2>
+    <div class="add-debt-form">
+
+    <form class="form-debts" method="post">
+
+          <div class="form-floating mb-3">
+            <input name="name_category" class="form-control" id="floatingName" placeholder="Name">
+            <label for="floatingName">Название новой категории</label>
+          </div>
+<h4>Существующие категории: </h4>
+        {% for category in categories%}
+        <p>{{category[0]}}</p>
+
+        {%endfor%}
+        <button class="btn btn-primary-debts rounded-pill px-6" type="submit" style="border: none;">Добавить</button>
+
+    </form>
+    </div>
+
+<div class="center">
+        <button onclick="goToAdminPage()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:100px;">Назад</button>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Добавить запись
+{% endblock %}
+
+{% block body %}
+<div class="container-add-expense" style="justify-content: center;">
+  <div class="row py-5">
+    <form method="post" class="col" action="/transaction/add-expense" enctype="multipart/form-data">
+      <div class="feature-col-wish">
+        <div class="types-actions-wish" style="margin-left: 10px; margin-right: auto;">
+          <p class="add-money-to-wish">Добавить запись о расходе</p>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" name="amount" class="form-control form-control-wish" style="margin-left: 10px;" id="floatingAmount" placeholder="Cost">
+          <label for="floatingAmount" style="margin-left: 10px;">Сумма</label>
+        </div>
+
+        <div class="container">
+  <div class="row justify-content-center">
+    <form id="expense-form" method="POST" action="/transaction/add-expense">
+      {% for category in categories %}
+        <div class="custom-col-3">
+          <button class="btn btn-primary-category rounded-pill px-2 py-1 category-button mr-3" type="submit" name="selected_category" value="{{ category[0] }}">{{ category[0] }}</button>
+        </div>
+      {% endfor %}
+    </form>
+  </div>
+</div>
+        <script>
+  const buttons = document.querySelectorAll('.category-button');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.remove('selected')); // Удаление класса 'selected' у всех кнопок
+      button.classList.add('selected'); // Добавление класса 'selected' к выбранной кнопке
+    });
+  });
+  document.getElementById('save-button').addEventListener('click', function() {
+    document.getElementById('expense-form').submit();
+  });
+</script>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

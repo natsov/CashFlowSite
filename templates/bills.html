@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Счета
+{% endblock %}
+
+{% block body %}
+
+ <div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Счета</h1>
+ </div>
+
+
+<div class="add-wishes-text">
+    <h4 class="fw-bold lh-1 my_finance_title">Добавить новый счет</h4>
+    <form action="/bills/add-new-bill" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="show_form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20" style="margin-right:30px;">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+
+     <h4 class="fw-bold lh-1 my_finance_title" style="margin-left:60px;">Пополнить счет</h4>
+    <form  action="/bills/add-money-to-bill" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="add_money_wish">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+
+    <h4 class="fw-bold lh-1 my_finance_title" style="margin-left:50px;">Перевести со счета на счет</h4>
+    <form  action="/bills/transfer" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="add_money_wish">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+
+    <h4 class="fw-bold lh-1 my_finance_title" style="margin-left:60px;">Удалить счет</h4>
+    <form action="/bills/remove-bill" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="show_form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20" style="margin-right:30px;">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M4 7h8v1H4z"/>
+        </svg>
+      </button>
+    </form>
+
+  </div>
+
+<div class="container-my-page">
+  <div class="row g-4 py-3" style="justify-content: space-between;">
+    {% for bill in bills %}
+    <div class="col-12 col-lg-4">
+    <div class="bill">
+
+        <h3 class="cost-wish" style="margin-top:10px">{{ bill[1] }}</h3>
+      <p class="text-cost">Баланс</p>
+      <p class="cost-wish">{{ bill[2] }} BYN</p>
+      <p class="text-cost">Дата открытия</p>
+        <p class="cost-wish">{{ bill[3].strftime('%d.%m.%Y') }}</p>
+
+    </div>
+    </div>
+    {% endfor %}
+    </div>
+
+  </div>
+{% if not bills %}
+    <div class="alert-no-debts" style="margin-top:30px;">У вас нет счетов!</div>
+  {% endif %}
+
+<div class="center">
+        <button onclick="goToMyPage()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:40px; margin-bottom:100px;">Назад</button>
+    </div>
+
+{% endblock %}

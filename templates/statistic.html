@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Статистика
+{% endblock %}
+
+{% block body %}
+
+<div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Статистика</h1>
+ </div>
+
+
+<form method="post" action="/statistic" style="margin-left:100px; margin-top:20px;">
+    <select class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" id="sort_values" name="type_stat">
+    <option value="Доход">Доходы</option>
+    <option value="Расход">Расходы</option>
+  </select>
+    <button class="w-10 btn btn-lg rounded-pill btn-stat-auto" type="submit" name="selected_interval" value="За последнюю неделю">За последнюю неделю</button>
+    <button class="w-10 btn btn-lg rounded-pill btn-stat-auto" type="submit" name="selected_interval" value="За последних 3 месяца">За последних 3 месяца</button>
+    <button class="w-10 btn btn-lg rounded-pill btn-stat-auto" type="submit" name="selected_interval" value="За последние 3 года">За последние 3 года</button>
+</form>
+
+
+
+<div>
+    <img src="data:image/png;base64,{{ image_base64 }}"style="margin-left:480px; margin-top:20px; width: 40%;" alt="Статистика">
+</div>
+
+<button onclick="goToTransaction()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:60px; margin-bottom:100px; margin-left:735px;">Назад</button>
+{% endblock %}

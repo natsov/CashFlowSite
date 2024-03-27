@@ -1,0 +1,169 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Пользователь
+{% endblock %}
+
+{% block body %}
+ <div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Пользователь {{name_user}} {%if not surname_user%}    {%else%} {{surname_user}} {%endif%}</h1>
+ </div>
+
+
+<div class="table-debts">
+            <h1>Долги</h1>
+
+  {% if debts %}
+    <form method="POST" action="/update_debt_status">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Имя или название организации</th>
+            <th scope="col">Дата возврата</th>
+          </tr>
+        </thead>
+          <tbody>
+          {%for debt in debts%}
+          <tr>
+
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ debt[2] }}</td>
+              <td>{{ debt[3] }}</td>
+              <td>{% if debt[4] is not none %}
+                  {{ debt[4].strftime('%d %B %Y')  }}
+                {% endif %}
+                  </td>
+
+          </tr>
+           {%endfor%}
+        </tbody>
+      </table>
+    </form>
+    {%else%}
+        <div class="alert-no-debts" style="margin-top:30px;">Записи отсутствуют!</div>
+
+    {% endif %}
+        </div>
+
+
+<div class="table-debts">
+    <h1>Список желаний</h1>
+  {% if wishes %}
+    <form method="POST" action="/update_debt_status">
+      <table class="table">
+        <thead>
+
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Стоимость</th>
+            <th scope="col">Накоплено</th>
+              <th scope="col">Целевая дата</th>
+          </tr>
+        </thead>
+          <tbody>
+          {%for wish in wishes%}
+          <tr>
+
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ wish[4] }}</td>
+              <td>{{ wish[2] }}</td>
+              <td>{{ wish[7] }}</td>
+              <td>{{ wish[5].strftime('%d %B %Y') }}</td>
+
+          </tr>
+           {%endfor%}
+        </tbody>
+      </table>
+    </form>
+    {%else%}
+    <div class="alert-no-debts" style="margin-top:30px;">Записи отсутствуют!</div>
+    {% endif %}
+        </div>
+
+
+
+
+
+
+<div class="table-debts">
+            <h1>Счета</h1>
+
+  {% if bills %}
+    <form method="POST" action="/update_debt_status">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Баланс</th>
+            <th scope="col">Дата открытия</th>
+          </tr>
+        </thead>
+          <tbody>
+          {%for bill in bills%}
+          <tr>
+
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ bill[1] }}</td>
+              <td>{{ bill[2] }}</td>
+              <td>{{ bill[3].strftime('%d %B %Y') }}</td>
+
+          </tr>
+           {%endfor%}
+        </tbody>
+      </table>
+    </form>
+    {%else%}
+    <div class="alert-no-debts" style="margin-top:30px;">Записи отсутствуют!</div>
+    {% endif %}
+        </div>
+
+
+
+
+
+<div class="table-debts">
+    <h1>Последние транзакции</h1>
+  {% if transactions %}
+    <form method="POST" action="/transaction">
+      <table class="table">
+        <thead>
+
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Тип транзакции</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Категория</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in transactions %}
+          <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ transaction[4] }}</td>
+              <td>{{ transaction[2] }}</td>
+              <td>{{ transaction[3].strftime('%d %B %Y') }}</td>
+              {%if not transaction[5]%}
+              <td> </td>
+              {%else%}
+              <td>{{ cash_db.get_category_name(transaction[5])[0][0] }}</td>
+              {%endif%}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+{% else %}
+        <div class="alert-no-debts" style="margin-top:30px;">Записи отсутствуют!</div>
+
+    {% endif %}
+</div>
+<div class="center">
+        <button onclick="goBack()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:100px;">Назад</button>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Удалить счет
+{% endblock %}
+
+{% block body %}
+
+<div class="container-my-page" style="justify-content: center;">
+  <div class="row py-5 row-cols-1 row-cols-lg-2">
+
+
+    <form method="post" class="col" action="/bills/remove-bill"  enctype="multipart/form-data">
+      <div class="feature-col-wish">
+        <div class="types-actions-wish" style=" margin-left: auto; margin-right: auto;">
+          <p class="add-money-to-wish">Удалить счет</p>
+        </div>
+        {% if error_message_transfer %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_message_transfer }}
+                </div>
+            {% endif %}
+    {% if error_message_removing %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_message_removing }}
+                </div>
+            {% endif %}
+
+        <label for="selected_bill_remove">Выберите счет, который требуется удалить:</label>
+        <select class="form-select" multiple aria-label="Multiple select example" name="selected_bill_remove">
+          {% for bill in bills %}
+          <option value="{{ bill[1] }}">{{ bill[1] }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="selected_bill_to_move_money"  style=" margin-top: 10px;">Выберите счет, на который переведется сумма со счета:</label>
+        <select class="form-select" multiple aria-label="Multiple select example" name="selected_bill_to_move_money">
+          {% for bill_second in bills %}
+          <option value="{{ bill_second[1] }}">{{ bill_second[1] }}</option>
+          {% endfor %}
+        </select>
+
+
+        <button class="btn btn-lg rounded-pill btn-save" type="submit" style="border: none;">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Страница Администратора
+{% endblock %}
+
+{% block body %}
+<div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Администрирование </h1>
+
+    </div>
+
+
+<div class="container-my-page" style="justify-content: center;">
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
+
+      <div class="feature-col">
+        <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Информация о пользователях</h3>
+        <p class = "text-about-col">Здесь Вы можете просмотреть список пользователей, а так же получить необходимый функционал для администрирования</p>
+         <div class="button-container"  style="margin-top:25px;">
+          <a href="/admin-info-users" class="icon-link">
+          Просмотреть список пользователей
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+           </div>
+
+      <div class="feature-col">
+        <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Добавление категории расходов</h3>
+        <p class = "text-about-col" style="margin-top:20px;"> Данный раздел предоставляет вам возможность добавлять данные о категориях расходов</p>
+<div class="button-container" style="margin-top:40px; ">
+          <a href="/admin-add-categories" class="icon-link" >
+          Просмотреть форму
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      </div>
+
+
+    <div class="feature-col">
+        <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Экпорт/импорт данных</h3>
+        <p class = "text-about-col">Здесь Вы можете экспортировать/импортировать данные в json-формате для сохранения/восстановления данных о пользователях</p>
+         <div class="button-container"  style="margin-top:25px;">
+          <a href="/export-import-json" class="icon-link">
+          Просмотреть страницу
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+        </div>
+    </div>
+    </div>
+
+    {% endblock %}

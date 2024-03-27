@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Добавить новую запись
+{% endblock %}
+
+{% block body %}
+
+  <div class="container-my-page" style="justify-content: center;">
+    <div class="row py-5 row-cols-1 row-cols-lg-2">
+      <form method="post" class="col" action="/wish-list/add-new-wish" enctype="multipart/form-data">
+        <div class="feature-col-wish">
+          <div class="types-actions-wish">
+            <p class="wish-title">Новая цель</p>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" name="name-wish" class="form-control form-control-wish" id="floatingNameWish" placeholder="Name">
+            <label for="floatingNameWish">Название</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" name="cost" class="form-control form-control-wish" id="floatingCost" placeholder="Cost">
+            <label for="floatingCost">Стоимость</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" name="date-wish" class="form-control form-control-wish" id="date">
+            <label for="date">Дата выполнения цели</label>
+          </div>
+          <p>
+            <input type="file" name="image" class="form-control form-control-wish form-choose-image" id="floatingImage">
+          </p>
+
+          <button class="btn btn-lg rounded-pill btn-save" type="submit" style="border: none;">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

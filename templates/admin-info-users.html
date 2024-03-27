@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Информация о пользователях
+{% endblock %}
+
+{% block body %}
+ <div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Информация о пользователях</h1>
+ </div>
+
+
+<form action="/admin-info-users/user-info" method="post">
+<div class="container-my-page">
+  <div class="row g-4 py-3" style="justify-content: space-between;">
+
+{% for user in users %}
+
+<div class="col-12 col-lg-4">
+     <button class="btn-transparent" type="submit" name="selected_user" value="{{ user[3] }}">
+    <div class="bill">
+        <h3 class="cost-wish" style="margin:40px">{{ user[1] }} {%if not user[2]%}   {%else%} {{ user[2] }} {%endif%}</h3>
+        <p class="text-cost" style="margin:40px" >{{ user[3] }}</p>
+    </div>
+         </button>
+</div>
+
+{% endfor %}
+
+
+    </div>
+  </div>
+
+     </form>
+
+<div class="center">
+        <button onclick="goBack()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:100px;">Назад</button>
+    </div>
+
+{% endblock %}

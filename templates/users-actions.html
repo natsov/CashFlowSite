@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+{% extends 'base.html'%}
+
+{% block title %}
+Действия пользователей
+{% endblock %}
+
+
+{% block body %}
+{% if error_message %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+
+ <div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Долги</h1>
+ </div>
+
+{% if not show_form %}
+<div class="add-wishes-text">
+    <h4 class="fw-bold lh-1 my_finance_title">Добавить новый долг</h4>
+    <form method="post" action="{{ url_for('debts') }}" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="show_form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+</div>
+
+{% if not debts %}
+    <div class="alert-no-debts" style="margin-top:30px;">У вас нет долгов!</div>
+  {% endif %}
+{% endif %}
+
+
+
+{% if show_form %}
+
+<h2 class="add-new-debt">Добавить новую запись</h2>
+    <div class="add-debt-form">
+
+    <form class="form-debts" action="/debts" method="post">
+         <div class="form-floating mb-3">
+    <input name="amount" class="form-control" id="floatingAmount" placeholder="Amount">
+    <label for="floatingAmount">Сумма</label>
+         </div>
+          <div class="form-floating mb-3">
+            <input name="name" class="form-control" id="floatingName" placeholder="Name">
+            <label for="floatingName">Имя или название организации</label>
+          </div>
+
+        <div class="form-floating mb-3">
+            <input type="date" name="date" class="form-control" id="date">
+            <label for="date">Дата выполнения</label>
+        </div>
+
+        <button class="btn btn-primary-debts rounded-pill px-6" type="submit" style="border: none;">Добавить</button>
+
+         {% endif %}
+
+    </form>
+    </div>
+
+
+<div class="table-debts">
+  {% if debts %}
+    <form method="POST" action="/update_debt_status">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Имя или название организации</th>
+            <th scope="col">Дата возврата</th>
+            <th scope="col">Удалить долг</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for debt in debts %}
+          {% set current_date = current_datetime.replace(tzinfo=None).date() %}
+{% set overdue = debt[4] is not none and debt[4].date() < current_date %}
+          <tr {% if overdue %}class="table-danger"{% endif %}>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ debt[2] }}</td>
+              <td>{{ debt[3] }}</td>
+              <td>
+                {% if debt[4] is not none %}
+                  {{ debt[4].strftime('%d.%m.%Y') }}
+                {% endif %}
+              </td>
+              <td><input type="checkbox" name="debt_ids[]" value="{{ debt[0] }}"></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-danger float-right">Удалить выбранные долги</button>
+    </form>
+
+    {% endif %}
+</div>
+<div class="center">
+        <button onclick="goToMyPage()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:100px;">Назад</button>
+    </div>
+
+
+{% endblock %}

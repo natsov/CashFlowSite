@@ -1,0 +1,95 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Список желаний
+{% endblock %}
+
+{% block body %}
+
+<div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Список желаний</h1>
+</div>
+
+
+<div class="add-wishes-text">
+    <h4 class="fw-bold lh-1 my_finance_title">Добавить новую цель</h4>
+    <form action="/wish-list/add-new-wish" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="show_form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20" style="margin-right:30px;">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+
+     <h4 class="fw-bold lh-1 my_finance_title" style="margin-left:70px;">Пополнить накопления</h4>
+    <form  action="/wish-list/add-money-to-wish" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="add_money_wish">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+
+    <h4 class="fw-bold lh-1 my_finance_title" style="margin-left:70px;">Пополнить накопления (со счёта)</h4>
+    <form  action="/wish-list/add-money-to-wish-from-bill" enctype="multipart/form-data">
+      <button class="plus-button" type="submit" name="add_money_wish">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 20 20">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </form>
+
+  </div>
+
+
+<div class="container-my-page">
+  <div class="row g-3 py-2" style="justify-content: space-between;">
+    {% for wish in wishes %}
+    <div class="col-12 col-lg-4">
+
+         {% set current_date = current_datetime.replace(tzinfo=None).date() %}
+{% set overdue = wish[5] is not none and wish[5] < current_date %}
+<div {% if overdue %}class="overdue"
+     {% elif (wish[7]*100)/wish[2] >= 100 %}class="success"
+     {%else%} class="wish" {% endif %}>
+    <img src="{{ url_for('static', filename='images_wishes/' + wish[6]) }}" style="margin-left:10px; margin-top:10px" alt="Фотография желания">
+      <hr class="my-3">
+          <p class="mt-1 mb-0 p-0">
+        <h4> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+  <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+  <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+</svg>{{ wish[4] }}</h4>
+      <p class="text-cost">Стоимость</p>
+        <p class="cost-wish">{{ wish[2] }} BYN</p>
+      <p class="text-cost">Накоплено</p>
+      <p class="cost-wish">{{ wish[7] }} BYN</p>
+      <p class="text-cost">Дата выполнения</p>
+        <p class="cost-wish">{{ wish[5].strftime('%d.%m.%Y') }}</p>
+<p class="text-cost">Прогресс {{ ((wish[7]*100)/wish[2])|round(1) }}%</p>
+        {% if (wish[7]*100)/wish[2] >= 100 %}
+        <div class="progress length-progress">
+            <div class="progress-bar d-flex align-items-center bg-success justify-content-center" role="progressbar" style="width: {{ (wish[7]*100)/wish[2] }}%;" aria-valuenow="{{ (wish[7]*100)/wish[2] }}" aria-valuemin="0" aria-valuemax="100">{{ (wish[7]*100)//wish[2] }}%</div>
+        </div>
+        {% else %}
+        <div class="progress length-progress">
+            <div class="progress-bar d-flex align-items-center bg-info justify-content-center" role="progressbar" style="width: {{ (wish[7]*100)/wish[2] }}%;" aria-valuenow="{{ (wish[7]*100)/wish[2] }}" aria-valuemin="0" aria-valuemax="100">{{ (wish[7]*100)//wish[2] }}%</div>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+    {% endfor %}
+    </div>
+
+  </div>
+{% if not wishes %}
+    <div class="alert-no-debts" style="margin-top:30px;">У вас нет желаний!</div>
+  {% endif %}
+<div class="center">
+        <button onclick="goToMyPage()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:40px; margin-bottom:100px;">Назад</button>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Добавить запись
+{% endblock %}
+
+{% block body %}
+
+<div class="container-my-page" style="justify-content: center;">
+  <div class="row py-5 row-cols-1 row-cols-lg-2">
+    <form method="post" class="col" action="/transaction/add-income"  enctype="multipart/form-data">
+      <div class="feature-col-wish">
+        <div class="types-actions-wish" style=" margin-left: auto; margin-right: auto;">
+          <p class="add-money-to-wish">Добавить запись о доходе</p>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" name="amount" class="form-control form-control-wish" id="floatingAmount" placeholder="Cost">
+          <label for="floatingAmount">Сумма</label>
+        </div>
+
+
+        <button class="btn btn-lg rounded-pill btn-save" type="submit" style="border: none;">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

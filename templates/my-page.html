@@ -1,0 +1,86 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Мои финансы
+{% endblock %}
+
+{% block body %}
+
+ <div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Мои финансы:     {%if name_surname%}
+
+     {{name_surname[0][0]}}
+         {%if name_surname[0][1]%}
+         {{name_surname[0][1]}}
+     {%else%}
+         {{''}}
+         {%endif%}
+
+          {%endif%}</h1>
+
+    </div>
+
+
+<div class="container-my-page" style="justify-content: center;">
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
+
+      <div class="feature-col">
+        <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Долги</h3>
+        <p class = "text-about-col">Вы можете легко отслеживать свои финансовые обязательства, избегать забывчивости и конфликтов, а также планировать свои финансы более осознанно.</p>
+         <div class="button-container">
+          <a href="debts" class="icon-link">
+          Просмотреть текущие долги
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+           </div>
+
+     <div class="feature-col">
+  <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Список желаний</h3>
+  <div class="text-about-col">
+    <p>В этом разделе Вы можете добавлять свои финансовые мечты, будь то путешествия, покупка жилья, образование или планирование на пенсию.</p>
+  </div>
+  <div class="button-container">
+    <a href="/wish-list" class="icon-link">
+      Просмотреть список желаний
+      <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+    </a>
+  </div>
+</div>
+
+      <div class="feature-col">
+        <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Счета</h3>
+        <p class = "text-about-col"> Эта финансовая база предоставляет Вам информацию о Вашем балансе, транзакциях и истории операций на всех счетах, с целью отслеживания денежных потоков</p>
+<div class="button-container">
+          <a href="/bills" class="icon-link">
+          Просмотреть созданные счета
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      </div>
+
+
+    <div class="feature-col">
+        <h3 class="fs-3 text-body-emphasis" style="text-align: center;">Транзакции</h3>
+        <p class = "text-about-col">Следите за своими финансовыми операциями, анализируйте свои транзакции и принимайте информированные финансовые решения.</p>
+         <div class="button-container">
+          <a href="transaction" class="icon-link">
+          Просмотреть список транзакций
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+           </div>
+
+    </div>
+    </div>
+
+
+
+
+
+<div class="center">
+        <button onclick="goBack()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:10px;">Назад</button>
+    </div>
+{% endblock %}
+
+

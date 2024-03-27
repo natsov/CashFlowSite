@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Экспорт/импорт
+{% endblock %}
+
+{% block body %}
+<div class="types-actions">
+    <h1 class="display-4 fw-bold lh-1 my_finance_title">Экспорт/импорт данных</h1>
+
+    </div>
+
+{% if message %}
+    <div class="success-message">{{ message }}</div>
+{% endif %}
+
+{% if error_message %}
+ <div class="alert-message">{{ error_message }}</div>
+{% endif %}
+
+
+<div class="container-my-page" style="justify-content: center;">
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
+
+       <form class="form-debts" action="/export_data" method="post">
+
+        <button class="btn btn-primary-debts rounded-pill px-4" type="submit" style="border: none;">Экспортировать в json</button>
+
+    </form>
+
+     <form class="form-debts" action="/import" method="post" enctype="multipart/form-data">
+
+        <button class="btn btn-primary-debts rounded-pill px-4" type="submit" style="border: none; margin-left:200px;">Импортировать json</button>
+<p>
+            <input type="file" name="import" class="form-control form-control-wish form-choose-image" style="margin-left:170px;  width: 250px;" id="floatingImage">
+          </p>
+    </form>
+
+      </div>
+
+    </div>
+
+<div class="center">
+        <button onclick="goToAdminPage()" class="btn btn-sign-in rounded-pill" style=" width: 200px; font-size: 18px; margin-top:100px;">Назад</button>
+    </div>
+    {% endblock %}
